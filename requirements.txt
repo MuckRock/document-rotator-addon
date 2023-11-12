@@ -1,2 +1,5 @@
 python-documentcloud==3.7.1
 requests
+PyMuPDF
+numpy==1.26.1
+opencv_python==4.8.1.78
