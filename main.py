@@ -1,38 +1,27 @@
 """
-This is a hello world add-on for DocumentCloud.
-
-It demonstrates how to write a add-on which can be activated from the
-DocumentCloud add-on system and run using Github Actions.  It receives data
-from DocumentCloud via the request dispatch and writes data back to
-DocumentCloud using the standard API
+This Add-On detects the orientation of text on a page 
+in a document and rotates the pages accordingly by detecting 
+a skew angle using an approximation. It saves the modified
+document and uploads it as a new document, preserving the
+original. 
 """
-
+import os
 from documentcloud.addon import AddOn
+from rotate import skew_correction, main as skew_correction_main
 
-
-class HelloWorld(AddOn):
-    """An example Add-On for DocumentCloud."""
+class Rotator(AddOn):
 
     def main(self):
         """The main add-on functionality goes here."""
-        # fetch your add-on specific data
-        name = self.data.get("name", "world")
-
-        self.set_message("Hello World start!")
-
-        # add a hello note to the first page of each selected document
+        self.set_message("Starting Document Rotator")
+        os.makedirs(os.path.dirname("./out/"), exist_ok=True)
         for document in self.get_documents():
-            # get_documents will iterate through all documents efficiently,
-            # either selected or by query, dependeing on which is passed in
-            document.annotations.create(f"Hello {name}!", 0)
-
-        with open("hello.txt", "w+") as file_:
-            file_.write("Hello world!")
-            self.upload_file(file_)
-
-        self.set_message("Hello World end!")
-        self.send_mail("Hello World!", "We finished!")
+            title = document.title
+            with open(f"{title}.pdf", "wb") as file:
+                file.write(document.pdf)
+            skew_correction_main(f"{title}.pdf", f"{title}_rotated.pdf")
+        self.client.documents.upload_directory("./out/")
 
 
 if __name__ == "__main__":
-    HelloWorld().main()
+    Rotator().main()
