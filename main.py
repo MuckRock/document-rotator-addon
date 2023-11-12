@@ -13,6 +13,12 @@ class Rotator(AddOn):
 
     def main(self):
         """The main add-on functionality goes here."""
+        project_id = self.data.get("project_id")
+        access_level = self.data["access_level"]
+        if project_id is not None:
+            kwargs = {"project": project_id}
+        else:
+            kwargs = {}
         self.set_message("Starting Document Rotator")
         os.makedirs(os.path.dirname("./out/"), exist_ok=True)
         for document in self.get_documents():
@@ -20,7 +26,7 @@ class Rotator(AddOn):
             with open(f"{title}.pdf", "wb") as file:
                 file.write(document.pdf)
             skew_correction_main(f"{title}.pdf", f"./out/{title}_rotated.pdf")
-        self.client.documents.upload_directory("./out/")
+        self.client.documents.upload_directory("./out/", access=access_level, **kwargs)
 
 
 if __name__ == "__main__":
