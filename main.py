@@ -19,7 +19,7 @@ class Rotator(AddOn):
             title = document.title
             with open(f"{title}.pdf", "wb") as file:
                 file.write(document.pdf)
-            skew_correction_main(f"{title}.pdf", f"{title}_rotated.pdf")
+            skew_correction_main(f"{title}.pdf", f"./out/{title}_rotated.pdf")
         self.client.documents.upload_directory("./out/")
 
 
