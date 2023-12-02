@@ -13,6 +13,9 @@ class Rotator(AddOn):
 
     def main(self):
         """The main add-on functionality goes here."""
+        if self.get_document_count() is None:
+            self.set_message("Please select at least one document.")
+            return
         project_id = self.data.get("project_id")
         access_level = self.data["access_level"]
         if project_id is not None:
