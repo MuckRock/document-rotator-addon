@@ -8,9 +8,13 @@ properties:
   project_id:
     title: Project ID of the project you would like the documents uploaded to (optional)
     type: integer
-  access_level:
-    title: Access level for uploaded documents (public, private(default), organization)
+  access_level: 
+    title: Access level (public, private, organization) of translations
     type: string
-    default: private
+    default: public
+    enum: &access
+      - public 
+      - private
+      - organization 
 categories:
   - file
