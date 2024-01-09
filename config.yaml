@@ -6,8 +6,9 @@ documents:
   - selected
 properties:
   project_id:
-    title: Project ID of the project you would like the documents uploaded to (optional)
+    title: Project ID
     type: integer
+    description: Project ID of the project you would like the rotated documents uploaded to.
   access_level: 
     title: Access level
     type: string
