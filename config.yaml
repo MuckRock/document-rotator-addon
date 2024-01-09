@@ -9,7 +9,7 @@ properties:
     title: Project ID of the project you would like the documents uploaded to (optional)
     type: integer
   access_level: 
-    title: Access level (public, private, organization) of translations
+    title: Access level
     type: string
     default: public
     enum: &access
