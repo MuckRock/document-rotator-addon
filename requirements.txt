@@ -1,6 +1,6 @@
 python-documentcloud==4.8.1
 requests
 PyMuPDF
-numpy==1.26.1
+numpy==1.26.2
 opencv_python==4.8.1.78
 python-squarelet==0.6.0
